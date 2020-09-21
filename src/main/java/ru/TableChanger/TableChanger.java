@@ -1,87 +1,52 @@
 package ru.TableChanger;
 
+//https://o7planning.org/ru/11259/read-write-excel-file-in-java-using-apache-poi#a5136061
+//http://java-online.ru/java-excel.xhtml
+//https://tproger.ru/translations/how-to-read-write-excel-file-java-poi-example/
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 
-import java.io.*;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Iterator;
+
 public class TableChanger {
 
 
-    public static void main(String[] args){
-        boolean ex = false;
-        try {
+    public static void main(String[] args) throws IOException {
+    HSSFSheet book;
+        int n = 1;
 
-            HSSFWorkbook workbook;
-            FileInputStream file = new FileInputStream(new File("F:\\1.xls"));
-            // формируем из файла экземпляр HSSFWorkbook
+            // Read XSL file
+            FileInputStream inputStream = new FileInputStream(new File("F:/1.xls"));
 
-            workbook = new HSSFWorkbook(file);
+            // Get the workbook instance for XLS file
+            HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
 
-            // выбираем первый лист для обработки
-            // нумерация начинается с 0
+            // Get first sheet from the workbook
             HSSFSheet sheet = workbook.getSheetAt(0);
+
+            // Get iterator to all the rows in current sheet
             Iterator<Row> it = sheet.iterator();
             while (it.hasNext()) {
                 Row row = it.next();
                 Iterator<Cell> cells = row.iterator();
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
-                    /*
-                    row.getRowNum() == 2 - Вторая строка Отчет от 1
-                    row.getCell(1) - 1й Столбец
-
-                     if (cell.getColumnIndex() == 1 && row.getRowNum() == 2) {
-                        String test1 = row.getCell(1).getStringCellValue();
-                        System.out.println("test111 " + test1);
-                    }
-                     */
-                        String tempCell = cell.getStringCellValue();
-                        int intCellColum = cell.getColumnIndex();
-                        int intCellRow = cell.getRowIndex();
-//                    if (tempCell.equals( Resthings.NAMEPFR_etalon)){
-//                        cell.setCellValue(Resthings.NAMEPFR);
-//                    }
+                    System.out.println("проход " +n);
+                    n++;
                 }
             }
-            //Попали в ячейку С9
-//                    if (cell.getColumnIndex() == 2 && row.getRowNum() == 8) {
-//                        String test1 = row.getCell(6).getStringCellValue();
-//                        System.out.println("test111 " + test1);
-//                        cell.setCellValue(Resthings.NAMEPFR);
-//
-//                    }
-
-            workbook.write(new FileOutputStream("F:\\2.xls"));
-            ex = true;
-
-        } catch (IOException e){
-            System.out.println("IO error");
-        } catch (Exception e){
-            System.out.println(" error");
-        }
-
-        // создаем подписи к столбцам (это будет первая строчка в листе Excel файла)
-        // записываем созданный в памяти Excel документ в файл
-        //        try (FileOutputStream out = new FileOutputStream(new File("F:\\Apache POI Excel File.xls"))) {
-        //            workbook.write(out);
-        //        } catch (IOException e) {
-        //            e.printStackTrace();
-        //        }
-        if (ex)
-        System.out.println("Excel файл успешно создан!");
+        System.out.println("");
     }
 
-
-
-
-
+  //  Sev@$0921232
 }
