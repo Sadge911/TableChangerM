@@ -17,8 +17,9 @@ public class TableChanger {
 
 
     public static void main(String[] args){
-        //TableOpener.OpenFile("F:\\test\\","1");
+        boolean ex = false;
         try {
+
             HSSFWorkbook workbook;
             FileInputStream file = new FileInputStream(new File("F:\\1.xls"));
             // формируем из файла экземпляр HSSFWorkbook
@@ -43,12 +44,12 @@ public class TableChanger {
                         System.out.println("test111 " + test1);
                     }
                      */
-                    String tempCell = cell.getStringCellValue();
-                    int intCellColum = cell.getColumnIndex();
-                    int intCellRow = cell.getRowIndex();
-                    if (tempCell.equals( Resthings.NAMEPFR_etalon)){
-                        cell.setCellValue(Resthings.NAMEPFR);
-                    }
+                        String tempCell = cell.getStringCellValue();
+                        int intCellColum = cell.getColumnIndex();
+                        int intCellRow = cell.getRowIndex();
+//                    if (tempCell.equals( Resthings.NAMEPFR_etalon)){
+//                        cell.setCellValue(Resthings.NAMEPFR);
+//                    }
                 }
             }
             //Попали в ячейку С9
@@ -60,7 +61,7 @@ public class TableChanger {
 //                    }
 
             workbook.write(new FileOutputStream("F:\\2.xls"));
-            Resthings.done=true;
+            ex = true;
 
         } catch (IOException e){
             System.out.println("IO error");
@@ -75,7 +76,7 @@ public class TableChanger {
         //        } catch (IOException e) {
         //            e.printStackTrace();
         //        }
-        if (Resthings.done)
+        if (ex)
         System.out.println("Excel файл успешно создан!");
     }
 
